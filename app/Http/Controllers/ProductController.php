@@ -15,6 +15,6 @@ class ProductController extends Controller
         $products = Product::with('category')
             ->get();
 
-        return view('admin.products.list', ['products' => $products]);
+        return view('admin.products.list', compact('products'));
     }
 }
