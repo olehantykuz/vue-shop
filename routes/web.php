@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,5 +20,8 @@ Route::get('/', function () {
 Route::group(['prefix' => 'admin'], function () {
     Route::group(['prefix' => 'products'], function () {
         Route::get('/', 'ProductController@index');
+    });
+    Route::group(['prefix' => 'categories'], function () {
+        Route::get('/', 'CategoryController@index');
     });
 });
