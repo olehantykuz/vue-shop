@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\SubCategory;
+use App\Models\Category;
 use App\Models\Product;
 
 class TestSeeder extends Seeder
@@ -13,9 +13,8 @@ class TestSeeder extends Seeder
      */
     public function run()
     {
-        $subCategories = SubCategory::all();
-        if ($subCategories->isNotEmpty()) {
-            factory(Product::class, 77)->create();
+        if (Category::count() > 0) {
+            factory(Product::class, 777)->create();
         }
     }
 }
