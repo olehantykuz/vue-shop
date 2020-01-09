@@ -15,14 +15,14 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('sub_category_id');
+            $table->unsignedBigInteger('category_id');
             $table->string('name');
             $table->text('description')->nullable();
             $table->bigInteger('price');
             $table->timestamps();
 
-            $table->index(['sub_category_id', 'price']);
-            $table->foreign('sub_category_id')->references('id')->on('sub_categories');
+            $table->index(['category_id', 'price']);
+            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 
@@ -34,7 +34,7 @@ class CreateProductsTable extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropForeign(['sub_category_id']);
+            $table->dropForeign(['category_id']);
         });
         Schema::dropIfExists('products');
     }
