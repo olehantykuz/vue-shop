@@ -12,26 +12,60 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        $subCategoriesByCategory = [
-            'sport' => [
-                'inventory',
-                'clothes',
+        $categories = [
+            [
+                'name' => 'Books',
+                'children' => [
+                    [
+                        'name' => 'Comic Book',
+                        'children' => [
+                            ['name' => 'Marvel Comic Book'],
+                            ['name' => 'DC Comic Book'],
+                            [
+                                'name' => 'Action comics',
+                                'children' => [
+                                    ['name' => 'Hit'],
+                                    ['name' => 'Unknown'],
+                                ],
+                            ],
+                        ],
+                    ],
+                    [
+                        'name' => 'Textbooks',
+                        'children' => [
+                            ['name' => 'Business'],
+                            ['name' => 'Finance'],
+                            ['name' => 'Computer Science'],
+                        ],
+                    ],
+                ],
             ],
-            'office' => [
-                'glue',
-                'pencil',
-                'pen',
+            [
+                'name' => 'Electronics',
+                'children' => [
+                    [
+                        'name' => 'TV',
+                        'children' => [
+                            ['name' => 'LED'],
+                            ['name' => 'Blu-ray'],
+                        ],
+                    ],
+                    [
+                        'name' => 'Mobile',
+                        'children' => [
+                            ['name' => 'Samsung'],
+                            ['name' => 'iPhone'],
+                            ['name' => 'Xiaomi'],
+                        ],
+                    ],
+                ],
             ],
         ];
 
-        foreach ($subCategoriesByCategory as $category => $subCategories) {
-            /** @var Category $category */
-            $category = Category::firstOrCreate(['name' => $category]);
-
-            foreach ($subCategories as $name) {
-                $category->subCategories()
-                    ->firstOrCreate(['name' => $name]);
-            }
+        foreach($categories as $category)
+        {
+            Category::create($category);
         }
+
     }
 }
