@@ -14,3 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group(['prefix' => 'admin'], function () {
+    Route::group(['prefix' => 'products'], function () {
+        Route::get('/', 'ProductController@index');
+    });
+});
