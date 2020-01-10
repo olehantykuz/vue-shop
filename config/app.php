@@ -119,7 +119,7 @@ return [
     |
     */
 
-    'default_currency' => env('DEFAULT_CURRENCY', 'USD'),
+    'default_currency' => env('CURRENCY_DEFAULT', 'USD'),
 
     'key' => env('APP_KEY'),
 
