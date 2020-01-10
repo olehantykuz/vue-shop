@@ -32,18 +32,14 @@ class CurrencyRefreshConversationRate extends Command
         parent::__construct();
     }
 
-    /**
-     * @throws \Exception
-     */
     public function handle()
     {
         $defaultCurrency = config('app.default_currency');
         $currencies = Currency::where('name', '<>', $defaultCurrency)
             ->get()
-            ->pluck('name')
-            ->toArray();
+            ->pluck('name');
 
-        $currencyService = new CurrencyService();
+        $currencyService = new CurrencyService($defaultCurrency);
         $conversationRates = $currencyService->getConversationRates($currencies);
 
         foreach ($conversationRates as $currencyName => $rate)

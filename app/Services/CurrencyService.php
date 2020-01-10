@@ -11,33 +11,31 @@ class CurrencyService
     protected $apiKey;
     protected $baseCurrency;
 
-    protected $queryParams = [
-        'compact' => 'ultra',
-        'apiKey' => null,
-        'q' => null,
-    ];
-
-    public function __construct()
+    public function __construct($defaultCurrency=null)
     {
-        $this->apiKey = config('services.currency.api_key');
+        $this->apiKey = config($defaultCurrency ?? 'services.currency.api_key');
         $this->baseCurrency = config('app.default_currency');
     }
 
     /**
-     * @param array $currencies
+     * @param \Illuminate\Support\Collection|\Illuminate\Database\Eloquent\Collection $currencies
      * @return array
-     * @throws \Exception
      */
-    public function getConversationRates(array $currencies)
+    public function getConversationRates($currencies)
     {
         if (!$this->apiKey) {
-            throw new \Exception('apiKey required');
+            return [];
         }
 
         $url = $this->apiUrl . '?' . $this->buildQueryString($currencies);
-        $response = json_decode(file_get_contents($url), true);
-        $result = [];
+        try {
+            $response = json_decode(file_get_contents($url), true);
+        } catch (\Exception $e) {
 
+            return [];
+        }
+
+        $result = [];
         foreach ($response as $key => $ratio) {
             $currency = $this->getCurrencyNameFromPair($key);
             $result[$currency] = $ratio;
@@ -47,10 +45,10 @@ class CurrencyService
     }
 
     /**
-     * @param array $currencies
+     * @param \Illuminate\Support\Collection|\Illuminate\Database\Eloquent\Collection $currencies
      * @return string
      */
-    protected function buildQueryString(array $currencies)
+    protected function buildQueryString($currencies)
     {
         $conversations = [];
         foreach ($currencies as $currency) {
