@@ -20,9 +20,9 @@ Route::get('/', function () {
 Route::group(['prefix' => 'admin'], function () {
     Route::get('currencies/{currency}', 'CurrencyController@setCurrency');
     Route::group(['prefix' => 'products'], function () {
-        Route::get('/', 'ProductController@index');
+        Route::get('/', 'ProductController@index')->name('products.list');
     });
     Route::group(['prefix' => 'categories'], function () {
-        Route::get('/', 'CategoryController@index');
+        Route::get('/', 'CategoryController@index')->name('categories.list');
     });
 });
