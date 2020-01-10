@@ -18,6 +18,7 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'admin'], function () {
+    Route::get('currencies/{currency}', 'CurrencyController@setCurrency');
     Route::group(['prefix' => 'products'], function () {
         Route::get('/', 'ProductController@index');
     });
