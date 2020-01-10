@@ -1,4 +1,4 @@
-@extends('admin.index')
+@extends('layouts.index')
 
 @section('title', 'List of Categories')
 
