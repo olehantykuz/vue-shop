@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Currency;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,9 @@ class ProductController extends Controller
     {
         $products = Product::with('category')
             ->get();
+        $currencies = Currency::all()
+            ->keyBy('name');
 
-        return view('admin.products.list', compact('products'));
+        return view('admin.products.list', compact('products', 'currencies'));
     }
 }

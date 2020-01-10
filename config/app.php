@@ -119,6 +119,8 @@ return [
     |
     */
 
+    'default_currency' => env('CURRENCY_DEFAULT', 'USD'),
+
     'key' => env('APP_KEY'),
 
     'cipher' => 'AES-256-CBC',
