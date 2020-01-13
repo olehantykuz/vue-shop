@@ -80,6 +80,14 @@ class Cart
     }
 
     /**
+     * @return bool
+     */
+    public static function isEmpty()
+    {
+        return count(session()->get(self::SESSION_KEY, [])) == 0;
+    }
+
+    /**
      * @param $id
      * @return string
      */
