@@ -11,7 +11,8 @@
             <th>Category</th>
             <th>Price, {{ $currencyName }}</th>
             <th>Quantity</th>
-            <th>Action</th>
+            <th></th>
+            <th></th>
         </tr>
         @foreach($cart['items'] as $item)
             <tr>
@@ -20,7 +21,20 @@
                 <td>{{ $item['product']->category->name }}</td>
                 <td>{{ round($item['product']->price * $currencyRate / 100, 2) }}</td>
                 <td>{{ $item['quantity'] }}</td>
-                <td></td>
+                <td>
+                    <form method="POST" action="{{ route('cart.remove', ['product' => $item['product']->id]) . '?quantity=1' }}">
+                        @csrf
+                        @method('PUT')
+                        <input type="submit" value="-1">
+                    </form>
+                </td>
+                <td>
+                    <form method="POST" action="{{ route('cart.remove', ['product' => $item['product']->id]) }}">
+                        @csrf
+                        @method('PUT')
+                        <input type="submit" value="Remove">
+                    </form>
+                </td>
             </tr>
         @endforeach
     </table>
