@@ -9,7 +9,10 @@
 </head>
 <body>
     <div>
-        @auth<div class="float-right">Hi, {{ Auth::user()->name }}</div>@endauth
+        <div class="float-right">
+            @auth<p>Hi, {{ Auth::user()->name }}</p>@endauth
+            @include('cart.small')
+        </div>
         <ul class="list-group list-group-horizontal">
             @guest
                 <li class="list-group-item"><a href="/">Home</a></li>
