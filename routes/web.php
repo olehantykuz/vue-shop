@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::group(['namespace' => 'Auth'], function() {
+    Route::get('/register', 'RegisterController@showRegistrationForm');
+    Route::post('/register', 'RegisterController@register');
+});
 Route::group(['prefix' => 'admin'], function () {
     Route::get('currencies/{currency}', 'CurrencyController@setCurrency');
     Route::group(['prefix' => 'products'], function () {
