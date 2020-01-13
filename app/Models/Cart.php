@@ -13,7 +13,7 @@ class Cart
      */
     public static function add($id, $quantity = 1)
     {
-        if(!session()->has(self::SESSION_KEY)) {
+        if (!session()->has(self::SESSION_KEY)) {
             session()->put(self::SESSION_KEY, []);
         }
 
@@ -24,14 +24,16 @@ class Cart
         return session()->get(self::SESSION_KEY);
     }
 
-    /**
-     * @param $id
-     * @return mixed
-     */
-    public static function remove($id)
+    public static function remove($id, ?int $quantity = null)
     {
-        if(session()->has(self::SESSION_KEY)) {
-            session()->forget(self::getKeyById($id));
+        if (session()->has(self::SESSION_KEY)) {
+            $key = self::getKeyById($id);
+            if (is_null($quantity)) {
+                session()->forget($key);
+            } else {
+                $newQuantity = session()->get($key, 0) - $quantity;
+                $newQuantity <=0 ? session()->forget($key) : session()->put($key, $newQuantity);
+            }
         }
 
         return session()->get(self::SESSION_KEY, []);
@@ -66,7 +68,7 @@ class Cart
                 ->keyBy('id');
 
             foreach ($cartData as $id => $count) {
-                $product= $products[$id];
+                $product = $products[$id];
 
                 $result['items'][] = [
                     'product' => $product,
