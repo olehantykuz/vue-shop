@@ -11,9 +11,12 @@
     <div>
         <ul>
             @guest
-                <li><a href="#">Register</a></li>
+                <li><a href="/register">Register</a></li>
                 <li><a href="#">Login</a></li>
             @endguest
+            @auth
+                    <li><a href="/logout">Logout</a></li>
+            @endauth
             <li><a href="{{ route('products.list') }}">Products</a></li>
             <li><a href="{{ route('categories.list') }}">Categories</a></li>
         </ul>
