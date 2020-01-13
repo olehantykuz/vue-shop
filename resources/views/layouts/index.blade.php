@@ -9,18 +9,18 @@
 </head>
 <body>
     <div>
-        @auth<div>Hi, {{ Auth::user()->name }}</div>@endauth
-        <ul>
+        @auth<div class="float-right">Hi, {{ Auth::user()->name }}</div>@endauth
+        <ul class="list-group list-group-horizontal">
             @guest
-                <li><a href="/">Home</a></li>
-                <li><a href="/register">Register</a></li>
-                <li><a href="/login">Login</a></li>
+                <li class="list-group-item"><a href="/">Home</a></li>
+                <li class="list-group-item"><a href="/register">Register</a></li>
+                <li class="list-group-item"><a href="/login">Login</a></li>
             @endguest
             @auth
-                    <li><a href="/logout">Logout</a></li>
+                    <li class="list-group-item"><a href="/logout">Logout</a></li>
             @endauth
-            <li><a href="{{ route('products.list') }}">Products</a></li>
-            <li><a href="{{ route('categories.list') }}">Categories</a></li>
+            <li class="list-group-item"><a href="{{ route('products.list') }}">Products</a></li>
+            <li class="list-group-item"><a href="{{ route('categories.list') }}">Categories</a></li>
         </ul>
     </div>
     <div class="content">
