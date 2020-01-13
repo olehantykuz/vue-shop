@@ -14,12 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('main');
 });
 
 Route::group(['namespace' => 'Auth'], function() {
     Route::get('/register', 'RegisterController@showRegistrationForm');
     Route::post('/register', 'RegisterController@register');
+    Route::get('/logout', 'LoginController@logout');
 });
 Route::group(['prefix' => 'admin'], function () {
     Route::get('currencies/{currency}', 'CurrencyController@setCurrency');
