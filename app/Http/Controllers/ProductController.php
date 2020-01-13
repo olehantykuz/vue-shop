@@ -41,14 +41,28 @@ class ProductController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
      */
     public function cart()
     {
+        if (Cart::isEmpty()) {
+
+            return redirect(route('products.list'));
+        }
         $cart = Cart::getDetail();
 
         return view('cart.detail',
             array_merge(compact('cart'), $this->selectedCurrency())
         );
+    }
+
+    /**
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function clearCart()
+    {
+        Cart::clear();
+
+        return redirect(route('products.list'));
     }
 }

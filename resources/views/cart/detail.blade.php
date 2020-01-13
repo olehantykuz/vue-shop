@@ -25,4 +25,10 @@
         @endforeach
     </table>
     <div>Total: {{ round($cart['total'] * $currencyRate / 100, 2) }}, {{ $currencyName }}</div>
+
+    <form method="POST" action="{{ route('cart.clear') }}">
+        @csrf
+        @method('DELETE')
+        <input type="submit" value="Clear Cart">
+    </form>
 @endsection
