@@ -5,7 +5,7 @@
         color: red;
     }
 </style>
-
+@section('title', 'Register')
 @section('content')
     <form method="POST" action="/register">
         @csrf
