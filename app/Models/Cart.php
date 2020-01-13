@@ -48,6 +48,38 @@ class Cart
     }
 
     /**
+     * @return array
+     */
+    public static function getDetail()
+    {
+        $cartData = session()->get(self::SESSION_KEY, []);
+        $result = [
+            'items' => [],
+            'total' => 0,
+        ];
+
+        if ($cartData) {
+            $ids = array_keys($cartData);
+            $products = Product::whereIn('id', $ids)
+                ->with('category')
+                ->get()
+                ->keyBy('id');
+
+            foreach ($cartData as $id => $count) {
+                $product= $products[$id];
+
+                $result['items'][] = [
+                    'product' => $product,
+                    'quantity' => $count,
+                ];
+                $result['total'] += $product->price * $count;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
      * @param $id
      * @return string
      */
