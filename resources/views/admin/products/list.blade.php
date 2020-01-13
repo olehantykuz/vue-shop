@@ -32,6 +32,7 @@ $currencyRate = session()->get('currency.rate', 1);
             <th>Category</th>
             <th>Product name</th>
             <th>Price, {{ $currencyName }}</th>
+            <th>Action</th>
         </tr>
         @foreach($products as $product)
             <tr>
@@ -39,6 +40,12 @@ $currencyRate = session()->get('currency.rate', 1);
                 <td>{{ $product->category->name }}</td>
                 <td>{{ $product->name }}</td>
                 <td>{{ round($product->price * $currencyRate / 100, 2) }}</td>
+                <td>
+                    <form method="POST" action="/products/{{$product->id}}/addToCart">
+                        @csrf
+                        <input type="submit" value="+1">
+                    </form>
+                </td>
             </tr>
         @endforeach
     </table>
