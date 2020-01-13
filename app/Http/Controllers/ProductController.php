@@ -6,9 +6,12 @@ use App\Models\Currency;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\Cart;
+use App\Http\Controllers\Traits\CurrencyTrait;
 
 class ProductController extends Controller
 {
+    use CurrencyTrait;
+
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -19,7 +22,9 @@ class ProductController extends Controller
         $currencies = Currency::all()
             ->keyBy('name');
 
-        return view('admin.products.list', compact('products', 'currencies'));
+        return view('admin.products.list',
+            array_merge(compact('products', 'currencies'), $this->selectedCurrency())
+        );
     }
 
     /**

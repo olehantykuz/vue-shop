@@ -1,10 +1,6 @@
 @extends('layouts.index')
 
 @section('title', 'List of Products')
-@php
-$currencyName = session()->get('currency.name', 'USD');
-$currencyRate = session()->get('currency.rate', 1);
-@endphp
 
 <style>
     table {
