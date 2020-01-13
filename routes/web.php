@@ -21,13 +21,13 @@ Route::group(['namespace' => 'Auth'], function() {
     Route::get('/register', 'RegisterController@showRegistrationForm');
     Route::post('/register', 'RegisterController@register');
     Route::get('/logout', 'LoginController@logout');
+    Route::get('/login', 'LoginController@showLoginForm');
+    Route::post('/login', 'LoginController@login');
 });
-Route::group(['prefix' => 'admin'], function () {
-    Route::get('currencies/{currency}', 'CurrencyController@setCurrency');
-    Route::group(['prefix' => 'products'], function () {
-        Route::get('/', 'ProductController@index')->name('products.list');
-    });
-    Route::group(['prefix' => 'categories'], function () {
-        Route::get('/', 'CategoryController@index')->name('categories.list');
-    });
+Route::get('currencies/{currency}', 'CurrencyController@setCurrency')->name('currency.set');
+Route::group(['prefix' => 'products'], function () {
+    Route::get('/', 'ProductController@index')->name('products.list');
+});
+Route::group(['prefix' => 'categories'], function () {
+    Route::get('/', 'CategoryController@index')->name('categories.list');
 });
