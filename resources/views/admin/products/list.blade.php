@@ -20,7 +20,7 @@ $currencyRate = session()->get('currency.rate', 1);
     <ul id = "currency_menu">
         @foreach($currencies as $currency)
             <li class="currency {{ $currency->name == $currencyName ? 'active' : '' }}">
-                <a href ="{{ url('/admin/currencies/' . $currency->name) }}">{{ $currency->name }}</a>
+                <a href ="{{ route('currency.set', ['currency' => $currency->name]) }}">{{ $currency->name }}</a>
             </li>
         @endforeach
     </ul>
