@@ -37,7 +37,7 @@
                 <td>{{ $product->name }}</td>
                 <td>{{ round($product->price * $currencyRate / 100, 2) }}</td>
                 <td>
-                    <form method="POST" action="/products/{{$product->id}}/addToCart">
+                    <form method="POST" action="{{ route('cart.add', ['product' => $product->id]) }}">
                         @csrf
                         <input type="submit" value="+1">
                     </form>
