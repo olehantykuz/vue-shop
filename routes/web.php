@@ -27,6 +27,7 @@ Route::group(['namespace' => 'Auth'], function() {
 Route::get('currencies/{currency}', 'CurrencyController@setCurrency')->name('currency.set');
 Route::group(['prefix' => 'products'], function () {
     Route::get('/', 'ProductController@index')->name('products.list');
+    Route::post('/{product}/addToCart', 'ProductController@addToCart');
 });
 Route::group(['prefix' => 'categories'], function () {
     Route::get('/', 'CategoryController@index')->name('categories.list');
