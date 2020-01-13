@@ -3,26 +3,26 @@
 @section('title', 'List of Products')
 
 <style>
-    table {
-        width: 50%;
-    }
-    td {
+    h3 {
         text-align: center;
-        border: 1px solid grey;
     }
 </style>
 
 @section('content')
-    <ul id = "currency_menu">
-        @foreach($currencies as $currency)
-            <li class="currency {{ $currency->name == $currencyName ? 'active' : '' }}">
-                <a href ="{{ route('currency.set', ['currency' => $currency->name]) }}">{{ $currency->name }}</a>
-            </li>
-        @endforeach
-    </ul>
+    <div class="row">
+        <div class="col-2 offset-10">
+            <ul id="currency_menu" class="list-group">
+                @foreach($currencies as $currency)
+                    <li class="list-group-item {{ $currency->name == $currencyName ? 'active' : '' }}">
+                        <a class="{{ $currency->name == $currencyName ? 'text-light' : '' }}" href ="{{ route('currency.set', ['currency' => $currency->name]) }}">{{ $currency->name }}</a>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
 
     <h3>List of Products</h3>
-    <table>
+    <table class="table">
         <tr>
             <th>ID</th>
             <th>Category</th>

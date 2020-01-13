@@ -8,11 +8,7 @@
     <title>Admin - @yield('title')</title>
 </head>
 <body>
-    <div>
-        <div class="float-right">
-            @auth<p>Hi, {{ Auth::user()->name }}</p>@endauth
-            @include('cart.small')
-        </div>
+    <div class="d-flex flex-row justify-content-between">
         <ul class="list-group list-group-horizontal">
             @guest
                 <li class="list-group-item"><a href="/">Home</a></li>
@@ -25,6 +21,10 @@
             <li class="list-group-item"><a href="{{ route('products.list') }}">Products</a></li>
             <li class="list-group-item"><a href="{{ route('categories.list') }}">Categories</a></li>
         </ul>
+        <div class="d-flex flex-row align-items-center bd-highlight">
+            @include('cart.small')
+            @auth<div class="p-2">Hi, {{ Auth::user()->name }}</div>@endauth
+        </div>
     </div>
     <div class="content">
         <div class="container">
