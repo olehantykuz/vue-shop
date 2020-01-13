@@ -39,4 +39,16 @@ class ProductController extends Controller
 
         return back();
     }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function cart()
+    {
+        $cart = Cart::getDetail();
+
+        return view('cart.detail',
+            array_merge(compact('cart'), $this->selectedCurrency())
+        );
+    }
 }

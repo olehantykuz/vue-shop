@@ -28,6 +28,7 @@ Route::get('currencies/{currency}', 'CurrencyController@setCurrency')->name('cur
 Route::group(['prefix' => 'products'], function () {
     Route::get('/', 'ProductController@index')->name('products.list');
     Route::post('/{product}/addToCart', 'ProductController@addToCart');
+    Route::get('/cart', 'ProductController@cart')->name('cart.detail');
 });
 Route::group(['prefix' => 'categories'], function () {
     Route::get('/', 'CategoryController@index')->name('categories.list');
