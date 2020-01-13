@@ -7,6 +7,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Http\Controllers\Traits\CurrencyTrait;
+use Illuminate\Validation\Validator;
 
 class ProductController extends Controller
 {
@@ -64,5 +65,19 @@ class ProductController extends Controller
         Cart::clear();
 
         return redirect(route('products.list'));
+    }
+
+    public function removeFromCart(Product $product, Request $request)
+    {
+        /** @var Validator $validator */
+        $validator = \Validator::make($request->all(), [
+            'quantity' => 'nullable|image',
+        ]);
+        $validator->validate();
+
+        $quantity = $request->get('quantity');
+        Cart::remove($product->id, $quantity);
+
+        return redirect(route('cart.detail'));
     }
 }
