@@ -18,8 +18,7 @@ class ProductController extends Controller
     {
         $products = Product::with('category')
             ->get();
-        $currencies = Currency::all()
-            ->keyBy('name');
+        $currencies = Currency::pluck('conversion_rate', 'name');
 
         return view('admin.products.list',
             array_merge(compact('products', 'currencies'), $this->selectedCurrency())

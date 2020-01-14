@@ -12,9 +12,9 @@
     <div class="row">
         <div class="col-2 offset-10">
             <ul id="currency_menu" class="list-group">
-                @foreach($currencies as $currency)
-                    <li class="list-group-item {{ $currency->name == $currencyName ? 'active' : '' }}">
-                        <a class="{{ $currency->name == $currencyName ? 'text-light' : '' }}" href ="{{ route('currency.set', ['currency' => $currency->name]) }}">{{ $currency->name }}</a>
+                @foreach($currencies as $name => $rate)
+                    <li class="list-group-item {{ $name == $currencyName ? 'active' : '' }}">
+                        <a class="{{ $name == $currencyName ? 'text-light' : '' }}" href ="{{ route('currency.set', ['currency' => $name]) }}">{{ $name }}</a>
                     </li>
                 @endforeach
             </ul>
