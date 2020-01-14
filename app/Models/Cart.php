@@ -24,6 +24,11 @@ class Cart
         return session()->get(self::SESSION_KEY);
     }
 
+    /**
+     * @param $id
+     * @param int|null $quantity
+     * @return mixed
+     */
     public static function remove($id, ?int $quantity = null)
     {
         if (session()->has(self::SESSION_KEY)) {
