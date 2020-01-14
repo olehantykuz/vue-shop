@@ -27,10 +27,10 @@ Route::group(['namespace' => 'Auth'], function() {
 Route::get('currencies/{currency}', 'CurrencyController@setCurrency')->name('currency.set');
 Route::group(['prefix' => 'products'], function () {
     Route::get('/', 'ProductController@index')->name('products.list');
-    Route::post('/{product}/addToCart', 'ProductController@addToCart')->name('cart.add');
-    Route::put('/{product}/removeFromCart', 'ProductController@removeFromCart')->name('cart.remove');
-    Route::get('/cart', 'ProductController@cart')->name('cart.detail');
-    Route::delete('/cart', 'ProductController@clearCart')->name('cart.clear');
+    Route::post('/{product}/addToCart', 'ShoppingCartController@add')->name('cart.add');
+    Route::put('/{product}/removeFromCart', 'ShoppingCartController@remove')->name('cart.remove');
+    Route::get('/cart', 'ShoppingCartController@index')->name('cart.detail');
+    Route::delete('/cart', 'ShoppingCartController@clear')->name('cart.clear');
 });
 Route::group(['prefix' => 'categories'], function () {
     Route::get('/', 'CategoryController@index')->name('categories.list');
