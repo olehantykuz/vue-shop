@@ -13,10 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::group(['prefix' => 'admin'], function () {
     Route::get('currencies/{currency}', 'CurrencyController@setCurrency');
     Route::group(['prefix' => 'products'], function () {
@@ -26,3 +22,5 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/', 'CategoryController@index');
     });
 });
+
+Route::any('{all}', 'AppController')->where('all', '.*');
