@@ -1,14 +1,14 @@
 <template>
-    <ExampleComponent />
+    <CurrencyList />
 </template>
 
 <script>
-    import ExampleComponent from "./components/ExampleComponent";
+    import CurrencyList from "./components/CurrencyList";
 
     export default {
         name: "App",
         components: {
-            ExampleComponent
+            CurrencyList
         }
     }
 </script>
