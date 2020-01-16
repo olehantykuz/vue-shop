@@ -1,22 +1,27 @@
 <?php
 
-namespace App\Models;
+namespace App\Repositories\Cart;
 
-class Cart
+use App\Models\Product;
+
+class CartSessionRepository implements CartRepositoryInterface
 {
     const SESSION_KEY = 'cart';
+
+    public function __construct()
+    {
+        if (!session()->has(self::SESSION_KEY)) {
+            session()->put(self::SESSION_KEY, []);
+        }
+    }
 
     /**
      * @param $id
      * @param int $quantity
      * @return mixed
      */
-    public static function add($id, int $quantity = 1)
+    public function add($id, int $quantity = 1)
     {
-        if (!session()->has(self::SESSION_KEY)) {
-            session()->put(self::SESSION_KEY, []);
-        }
-
         $key = self::getKeyById($id);
         $newQuantity = session()->get($key, 0) + $quantity;
         session()->put($key, $newQuantity);
@@ -29,25 +34,23 @@ class Cart
      * @param int|null $quantity
      * @return mixed
      */
-    public static function remove($id, ?int $quantity = null)
+    public function remove($id, int $quantity = null)
     {
-        if (session()->has(self::SESSION_KEY)) {
-            $key = self::getKeyById($id);
-            if (is_null($quantity)) {
-                session()->forget($key);
-            } else {
-                $newQuantity = session()->get($key, 0) - $quantity;
-                $newQuantity <=0 ? session()->forget($key) : session()->put($key, $newQuantity);
-            }
+        $key = self::getKeyById($id);
+        if (is_null($quantity)) {
+            session()->forget($key);
+        } else {
+            $newQuantity = session()->get($key, 0) - $quantity;
+            $newQuantity <= 0 ? session()->forget($key) : session()->put($key, $newQuantity);
         }
 
-        return session()->get(self::SESSION_KEY, []);
+        return $this->get();
     }
 
     /**
      * @return mixed
      */
-    public static function clear()
+    public function clear()
     {
         session()->put(self::SESSION_KEY, []);
 
@@ -55,11 +58,19 @@ class Cart
     }
 
     /**
+     * @return mixed
+     */
+    public function get()
+    {
+        return session()->get(self::SESSION_KEY, []);
+    }
+
+    /**
      * @return array
      */
-    public static function getDetail()
+    public function getDetail()
     {
-        $cartData = session()->get(self::SESSION_KEY, []);
+        $cartData = $this->get();
         $result = [
             'items' => [],
             'total' => 0,
@@ -89,9 +100,9 @@ class Cart
     /**
      * @return bool
      */
-    public static function isEmpty()
+    public function isEmpty()
     {
-        return count(session()->get(self::SESSION_KEY, [])) == 0;
+        return count($this->get()) == 0;
     }
 
     /**
@@ -102,4 +113,5 @@ class Cart
     {
         return self::SESSION_KEY . '.' . $id;
     }
+
 }

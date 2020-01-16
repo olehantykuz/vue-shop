@@ -34,6 +34,8 @@ class CurrencyRefreshConversationRate extends Command
 
     public function handle()
     {
+        dd(app()->runningInConsole());
+
         $defaultCurrency = config('app.default_currency');
         $currencies = Currency::where('name', '<>', $defaultCurrency)
             ->get()

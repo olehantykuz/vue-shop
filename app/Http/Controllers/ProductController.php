@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Currency;
+use App\Services\CartService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Traits\CurrencyTrait;
 use Illuminate\Support\Facades\Validator;
@@ -19,6 +20,8 @@ class ProductController extends Controller
      */
     public function index(ProductService $service, Request $request)
     {
+        new CartService();
+
         /** @var \Illuminate\Contracts\Validation\Validator $validator */
         $validator = Validator::make($request->all(), [
             'count' => 'nullable|integer|min:1',
