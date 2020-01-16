@@ -6,6 +6,7 @@
                     is="currency-list-item"
                     v-for="currency in currencies"
                     :currency="currency"
+                    :key="currency.name"
                 >
                 </li>
             </ul>
