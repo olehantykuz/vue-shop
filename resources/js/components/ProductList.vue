@@ -11,7 +11,7 @@
                 <th>ID</th>
                 <th>Category</th>
                 <th>Product name</th>
-                <th>Price</th>
+                <th>Price, {{ currency }}</th>
                 <th>Action</th>
             </tr>
             <tr
@@ -48,6 +48,9 @@
         computed: {
             conversationRate: function () {
                 return this.$root.currencyConversationRate || 1;
+            },
+            currency: function () {
+                return this.$root.selectedCurrency;
             }
         },
         created() {
