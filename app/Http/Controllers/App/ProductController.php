@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\App;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Product as ProductResource;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -12,7 +13,7 @@ class ProductController extends Controller
     /**
      * @param ProductService $service
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index(ProductService $service, Request $request)
     {
@@ -28,7 +29,7 @@ class ProductController extends Controller
         $validator->validate();
         $products = $service->all($request->get('count'));
 
-        return response()->json($products, 200);
+        return ProductResource::collection($products);
     }
 
 }
