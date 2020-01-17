@@ -18,6 +18,9 @@ Route::group(['namespace' => 'App'], function () {
     Route::group(['prefix' => 'currencies'], function () {
         Route::get('/', 'CurrencyController@index');
     });
+    Route::group(['prefix' => 'products'], function () {
+        Route::get('/', 'ProductController@index');
+    });
 });
 
 
