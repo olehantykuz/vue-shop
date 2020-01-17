@@ -11,7 +11,8 @@ class CurrencyController extends Controller
     public function index()
     {
         $currencies = Currency::select('name', 'conversion_rate')
-            ->get();
+            ->get()
+            ->keyBy('name');
 
         return response()->json($currencies, 200);
     }
