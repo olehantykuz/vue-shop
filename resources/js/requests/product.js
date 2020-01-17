@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const getProducts = () => {
+const getProducts = (url) => {
     return axios({
-        url: `/api/products`,
+        url: url || `/api/products`,
         method: 'get',
     }).then(response => response);
 };
