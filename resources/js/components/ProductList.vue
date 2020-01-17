@@ -1,6 +1,11 @@
 <template>
     <div>
         <h3>List of Products</h3>
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="" @click.prevent="fetchProducts(pagination.prev_page_url)">Previous</a></li>
+            <li style="display: flex;" class="page-item flex align-items-center"><div>Page {{pagination.current_page}} of {{pagination.last_page}}</div></li>
+            <li class="page-item"><a class="page-link" href="" @click.prevent="fetchProducts(pagination.next_page_url)">Next</a></li>
+        </ul>
         <table class="table">
             <tr>
                 <th>ID</th>
@@ -32,14 +37,37 @@
         },
         data: function () {
             return {
-                products: []
+                products: [],
+                pagination: {},
             }
         },
         created() {
-            getProducts().then(response => {
-                this.products = response.data.data;
-            })
-        }
+            this.fetchProducts();
+        },
+        methods: {
+            fetchProducts: function(url = null) {
+                getProducts(url).then(response => {
+                    this.products = response.data.data;
+                    this.makePagination(response.data);
+                })
+            },
+
+            makePagination: function(data) {
+                this.pagination = {
+                    current_page: data.current_page,
+                    last_page: data.last_page,
+                    path: data.path,
+                    first_page_url: data.first_page_url,
+                    last_page_url: data.last_page_url,
+                    next_page_url: data.next_page_url,
+                    prev_page_url: data.prev_page_url,
+                    per_page: data.per_page,
+                    from: data.from,
+                    to: data.to,
+                    total: data.total
+                };
+            }
+        },
     }
 </script>
 
