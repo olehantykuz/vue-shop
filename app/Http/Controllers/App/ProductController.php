@@ -26,7 +26,6 @@ class ProductController extends Controller
             return response()->json(['errors' => $validator->errors()], 400);
         }
         $validator->validate();
-
         $products = $service->all($request->get('count'));
 
         return response()->json($products, 200);
