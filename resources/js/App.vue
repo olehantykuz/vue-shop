@@ -1,6 +1,8 @@
 <template>
     <div>
-        <CurrencyList />
+        <CurrencyList
+            :currencies="currencies"
+        />
         <ProductList />
     </div>
 </template>
@@ -14,7 +16,12 @@
         components: {
             CurrencyList,
             ProductList,
-        }
+        },
+        computed: {
+            currencies: function () {
+                return Object.assign({}, this.$root.currencies)
+            }
+        },
     }
 </script>
 

@@ -19,6 +19,7 @@
                 v-for="product in products"
                 :key="product.id"
                 :product="product"
+                :rate="conversationRate"
             >
 
             </tr>
@@ -42,6 +43,11 @@
                     links: {},
                     meta: {},
                 },
+            }
+        },
+        computed: {
+            conversationRate: function () {
+                return this.$root.currencyConversationRate || 1;
             }
         },
         created() {

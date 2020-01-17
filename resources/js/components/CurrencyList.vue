@@ -15,24 +15,18 @@
 </template>
 
 <script>
-    import { getCurrencies } from '../requests/currency';
     import CurrencyListItem from "./CurrencyListItem";
     export default {
         name: "CurrencyList",
         components: {
             CurrencyListItem
         },
-        data: function () {
-            return {
-                currencies: []
-            }
+        props: {
+            currencies: {
+                type: Object,
+                required: true
+            },
         },
-
-        created() {
-            getCurrencies().then(response => {
-                this.currencies = response.data;
-            })
-        }
     }
 </script>
 
