@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,6 +13,14 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::group(['namespace' => 'App'], function () {
+    Route::group(['prefix' => 'currencies'], function () {
+        Route::get('/', 'CurrencyController@index');
+    });
+});
+
+
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
