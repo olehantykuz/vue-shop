@@ -15,6 +15,7 @@
 </template>
 
 <script>
+    import { getCurrencies } from '../requests/currency';
     import CurrencyListItem from "./CurrencyListItem";
     export default {
         name: "CurrencyList",
@@ -23,12 +24,14 @@
         },
         data: function () {
             return {
-                currencies: [
-                    {name: 'USD'},
-                    {name: 'EUR'},
-                    {name: 'UAH'},
-                ]
+                currencies: []
             }
+        },
+
+        created() {
+            getCurrencies().then(response => {
+                this.currencies = response.data;
+            })
         }
     }
 </script>
