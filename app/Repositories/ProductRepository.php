@@ -13,6 +13,7 @@ class ProductRepository
     public function all(?int $count = null)
     {
         return Product::with('category')
+            ->select(['id', 'name', 'price', 'category_id'])
             ->paginate($count);
     }
 
