@@ -1,19 +1,19 @@
 <template>
-    <div>
-        <CurrencyList />
-        <ProductList />
+    <div class="container">
+        <Heading />
+        <div role="main">
+            <router-view></router-view>
+        </div>
     </div>
 </template>
 
 <script>
-    import CurrencyList from "./components/CurrencyList";
-    import ProductList from "./components/ProductList";
+    import Heading from "./components/Heading";
 
     export default {
         name: "App",
         components: {
-            CurrencyList,
-            ProductList,
+            Heading,
         },
     }
 </script>
