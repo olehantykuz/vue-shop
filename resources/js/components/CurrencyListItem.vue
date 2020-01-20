@@ -12,6 +12,7 @@
 
 <script>
     import EventBus from "../event-bus";
+    import { mapState } from "vuex";
 
     export default {
         name: "CurrencyItem",
@@ -21,11 +22,12 @@
                 required: true
             },
         },
-        computed: {
+        computed: mapState({
+            selectedCurrency: state => state.selectedCurrency,
             isSelected: function () {
-                return this.currency.name === this.$store.state.selectedCurrency;
-            }
-        },
+                return this.currency.name === this.selectedCurrency;
+            },
+        }),
         methods: {
             selectCurrency () {
                 EventBus.$emit('selectCurrency', this.currency.name);

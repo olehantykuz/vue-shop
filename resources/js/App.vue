@@ -8,6 +8,7 @@
 </template>
 
 <script>
+    import { mapState } from "vuex";
     import CurrencyList from "./components/CurrencyList";
     import ProductList from "./components/ProductList";
 
@@ -17,11 +18,9 @@
             CurrencyList,
             ProductList,
         },
-        computed: {
-            currencies: function () {
-                return Object.assign({}, this.$store.state.currencies);
-            }
-        },
+        computed: mapState([
+            'currencies',
+        ]),
     }
 </script>
 
