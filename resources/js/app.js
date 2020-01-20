@@ -10,9 +10,26 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
+import Vuex from 'vuex';
 import App from "./App";
 import EventBus from "./event-bus";
 import { getCurrencies } from "./requests/currency";
+
+Vue.use(Vuex);
+const store = new Vuex.Store({
+    state: {
+        currencies: {},
+        selectedCurrency: 'USD',
+    },
+    mutations: {
+        setCurrency(state, payload) {
+            state.selectedCurrency = payload;
+        },
+        setCurrencies(state, payload) {
+            state.currencies = payload;
+        }
+    }
+});
 
 const app = new Vue({
     el: '#app',
@@ -26,11 +43,6 @@ const app = new Vue({
             const currency = this.currencies[key];
 
             return currency ? (currency.conversion_rate || 1) : 1;
-        }
-    },
-    methods: {
-        updateSelectedCurrency(payload) {
-            this.selectedCurrency = payload;
         }
     },
     created() {
