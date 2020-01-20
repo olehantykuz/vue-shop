@@ -11,11 +11,14 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 import Vuex from 'vuex';
+import VueRouter from 'vue-router'
 import App from "./App";
 import EventBus from "./event-bus";
 import { getCurrencies } from "./requests/currency";
 
 Vue.use(Vuex);
+Vue.use(VueRouter);
+
 const store = new Vuex.Store({
     state: {
         currencies: {},
