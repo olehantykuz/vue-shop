@@ -15,18 +15,16 @@
 </template>
 
 <script>
+    import { mapState } from 'vuex';
     import CurrencyListItem from "./CurrencyListItem";
     export default {
         name: "CurrencyList",
         components: {
             CurrencyListItem
         },
-        props: {
-            currencies: {
-                type: Object,
-                required: true
-            },
-        },
+        computed: mapState([
+            'currencies',
+        ]),
     }
 </script>
 

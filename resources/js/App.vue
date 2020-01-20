@@ -1,14 +1,11 @@
 <template>
     <div>
-        <CurrencyList
-            :currencies="currencies"
-        />
+        <CurrencyList />
         <ProductList />
     </div>
 </template>
 
 <script>
-    import { mapState } from "vuex";
     import CurrencyList from "./components/CurrencyList";
     import ProductList from "./components/ProductList";
 
@@ -18,9 +15,6 @@
             CurrencyList,
             ProductList,
         },
-        computed: mapState([
-            'currencies',
-        ]),
     }
 </script>
 
