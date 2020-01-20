@@ -16,8 +16,9 @@ import App from "./App";
 import EventBus from "./event-bus";
 import { getCurrencies } from "./requests/currency";
 
+import router from "./router";
+
 Vue.use(Vuex);
-Vue.use(VueRouter);
 
 const store = new Vuex.Store({
     state: {
@@ -45,6 +46,7 @@ const store = new Vuex.Store({
 const app = new Vue({
     el: '#app',
     store,
+    router,
     created() {
         getCurrencies().then(response => {
             this.$store.commit('setCurrencies', response.data);
