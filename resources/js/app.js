@@ -34,14 +34,6 @@ const store = new Vuex.Store({
 const app = new Vue({
     el: '#app',
     store,
-    computed: {
-        currencyConversationRate: function () {
-            const key = this.$store.state.selectedCurrency;
-            const currency = this.currencies[key];
-
-            return currency ? (currency.conversion_rate || 1) : 1;
-        }
-    },
     created() {
         getCurrencies().then(response => {
             this.$store.commit('setCurrencies', response.data);
