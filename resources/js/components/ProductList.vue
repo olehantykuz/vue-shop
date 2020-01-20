@@ -47,10 +47,13 @@
         },
         computed: {
             conversationRate: function () {
-                return this.$root.currencyConversationRate || 1;
+                const key = this.$store.state.selectedCurrency;
+                const currency = this.$store.state.currencies[key];
+
+                return currency ? (currency.conversion_rate || 1) : 1;
             },
             currency: function () {
-                return this.$root.selectedCurrency;
+                return this.$store.state.selectedCurrency;
             }
         },
         created() {

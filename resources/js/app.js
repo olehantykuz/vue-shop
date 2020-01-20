@@ -33,13 +33,10 @@ const store = new Vuex.Store({
 
 const app = new Vue({
     el: '#app',
-    data: {
-        currencies: {},
-        selectedCurrency: 'USD',
-    },
+    store,
     computed: {
         currencyConversationRate: function () {
-            const key = this.selectedCurrency;
+            const key = this.$store.state.selectedCurrency;
             const currency = this.currencies[key];
 
             return currency ? (currency.conversion_rate || 1) : 1;
@@ -47,12 +44,12 @@ const app = new Vue({
     },
     created() {
         getCurrencies().then(response => {
-            this.currencies = response.data;
+            this.$store.commit('setCurrencies', response.data);
         })
     },
     mounted () {
-        EventBus.$on('selectCurrency', payLoad => {
-            this.updateSelectedCurrency(payLoad);
+        EventBus.$on('selectCurrency', payload => {
+            this.$store.commit('setCurrency', payload);
         });
     },
     render: h => h(App)

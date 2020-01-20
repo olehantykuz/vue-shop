@@ -19,7 +19,7 @@
         },
         computed: {
             currencies: function () {
-                return Object.assign({}, this.$root.currencies)
+                return Object.assign({}, this.$store.state.currencies);
             }
         },
     }

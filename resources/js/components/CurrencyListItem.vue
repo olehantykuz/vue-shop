@@ -23,7 +23,7 @@
         },
         computed: {
             isSelected: function () {
-                return this.currency.name === this.$root.selectedCurrency;
+                return this.currency.name === this.$store.state.selectedCurrency;
             }
         },
         methods: {
