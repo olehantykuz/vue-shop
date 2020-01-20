@@ -28,6 +28,7 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex';
     import ProductListItem from "./ProductListItem";
     import { getProducts } from "../requests/product";
 
@@ -46,12 +47,9 @@
             }
         },
         computed: {
-            conversationRate: function () {
-                const key = this.$store.state.selectedCurrency;
-                const currency = this.$store.state.currencies[key];
-
-                return currency ? (currency.conversion_rate || 1) : 1;
-            },
+            ...mapGetters([
+                'conversationRate'
+            ]),
             currency: function () {
                 return this.$store.state.selectedCurrency;
             }

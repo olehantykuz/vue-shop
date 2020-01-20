@@ -28,6 +28,14 @@ const store = new Vuex.Store({
         setCurrencies(state, payload) {
             state.currencies = payload;
         }
+    },
+    getters: {
+        conversationRate: state => {
+            const key = state.selectedCurrency;
+            const currency = state.currencies[key];
+
+            return currency ? (currency.conversion_rate || 1) : 1;
+        }
     }
 });
 
