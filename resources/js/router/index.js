@@ -8,10 +8,11 @@ import ProductList from "../components/ProductList";
 Vue.use(Router);
 
 const router = new Router({
+    mode: 'history',
     routes: [
-        { path: '/', component: ProductList },
-        { path: '/login', component: Login },
-        { path: '/register', component: Register },
+        { name: 'home', path: '/', component: ProductList },
+        { name: 'login', path: '/login', component: Login },
+        { name: 'register', path: '/register', component: Register },
     ]
 });
 
