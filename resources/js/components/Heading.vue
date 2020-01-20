@@ -11,7 +11,9 @@
                 <li class="list-group-item">
                     <router-link :to="{name: 'login'}">Login</router-link>
                 </li>
-                <li class="list-group-item"><a href="/">Logout</a></li>
+                <li class="list-group-item">
+                    <router-link to="/logout">Logout</router-link>
+                </li>
             </ul>
         </div>
     </header>
