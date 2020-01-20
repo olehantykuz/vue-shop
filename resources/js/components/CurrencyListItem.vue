@@ -22,12 +22,14 @@
                 required: true
             },
         },
-        computed: mapState({
-            selectedCurrency: state => state.selectedCurrency,
+        computed: {
+            ...mapState({
+                selectedCurrency: state => state.selectedCurrency,
+            }),
             isSelected: function () {
                 return this.currency.name === this.selectedCurrency;
             },
-        }),
+        },
         methods: {
             selectCurrency () {
                 EventBus.$emit('selectCurrency', this.currency.name);
