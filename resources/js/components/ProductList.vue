@@ -28,7 +28,7 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
+    import { mapGetters, mapState } from 'vuex';
     import ProductListItem from "./ProductListItem";
     import { getProducts } from "../requests/product";
 
@@ -50,9 +50,9 @@
             ...mapGetters([
                 'conversationRate'
             ]),
-            currency: function () {
-                return this.$store.state.selectedCurrency;
-            }
+            ...mapState({
+                currency: state => state.selectedCurrency,
+            }),
         },
         created() {
             this.fetchProducts();
