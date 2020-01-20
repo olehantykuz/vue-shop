@@ -10,38 +10,12 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-import Vuex from 'vuex';
-import VueRouter from 'vue-router'
 import App from "./App";
 import EventBus from "./event-bus";
 import { getCurrencies } from "./requests/currency";
 
 import router from "./router";
-
-Vue.use(Vuex);
-
-const store = new Vuex.Store({
-    state: {
-        currencies: {},
-        selectedCurrency: 'USD',
-    },
-    mutations: {
-        setCurrency(state, payload) {
-            state.selectedCurrency = payload;
-        },
-        setCurrencies(state, payload) {
-            state.currencies = payload;
-        }
-    },
-    getters: {
-        conversationRate: state => {
-            const key = state.selectedCurrency;
-            const currency = state.currencies[key];
-
-            return currency ? (currency.conversion_rate || 1) : 1;
-        }
-    }
-});
+import store from './store';
 
 const app = new Vue({
     el: '#app',
