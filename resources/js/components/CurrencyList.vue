@@ -17,6 +17,7 @@
 <script>
     import { mapState } from 'vuex';
     import CurrencyListItem from "./CurrencyListItem";
+
     export default {
         name: "CurrencyList",
         components: {
