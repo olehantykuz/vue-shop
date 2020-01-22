@@ -1,5 +1,5 @@
 import axios from 'axios';
-import authHeader from "./authHeader";
+import authHeader from "../helpers/authHeader";
 
 const baseUrl = '/api/auth';
 const authorise = response => {
