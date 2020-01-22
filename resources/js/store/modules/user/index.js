@@ -3,8 +3,8 @@ import router from "../../../router";
 
 const token = JSON.parse(window.localStorage.getItem('authToken'));
 const state = token
-    ? { status: { loggedIn: true }, account: {} }
-    : { status: {}, account: {} };
+    ? { status: { loggedIn: true }, account: {} , error: null}
+    : { status: {}, account: {}, error: null };
 
 const actions = {
     login({ dispatch, commit }, { email, password }) {
@@ -14,11 +14,12 @@ const actions = {
             .then(
                 response => {
                     commit('loginSuccess', response.data.user);
+                    dispatch('alert/clear', null, { root: true });
                     router.push({ name: 'home' });
                 },
                 error => {
                     commit('loginFailure', error);
-                    // dispatch('alert/error', error, { root: true });
+                    dispatch('alert/error', 'Invalid email or password', { root: true });
                 }
             );
     },
@@ -38,10 +39,11 @@ const actions = {
             .then(
                 response => {
                     commit('registerSuccess', response.data.user);
+                    dispatch('alert/clear', null, { root: true });
                 },
                 error => {
-                    commit('registerFailure', error);
-                    // dispatch('alert/error', error, { root: true });
+                    commit('registerFailure', 'Invalid email or password');
+                    dispatch('alert/error', 'Invalid email or password', { root: true });
                 }
             );
     },
