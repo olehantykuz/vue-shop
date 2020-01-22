@@ -1,5 +1,4 @@
 <template>
-<!--    <div>Login Component</div>-->
     <div>
         <div class="alert alert-danger" v-if="error">
             <p>There was an error, unable to sign in with those credentials.</p>
@@ -25,7 +24,7 @@
 </template>
 
 <script>
-    import { login } from "../requests/auth";
+    import { login } from "../services/user";
     import { mapState } from "vuex";
 
     export default {

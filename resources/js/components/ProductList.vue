@@ -32,7 +32,7 @@
     import { mapGetters, mapState } from 'vuex';
     import ProductListItem from "./ProductListItem";
     import CurrencyList from "./CurrencyList";
-    import { getProducts } from "../requests/product";
+    import { getProducts } from "../services/product";
 
     export default {
         name: "ProductList",

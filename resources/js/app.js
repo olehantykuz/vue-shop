@@ -11,7 +11,7 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 import App from "./App";
-import { getCurrencies } from "./requests/currency";
+import { getCurrencies } from "./services/currency";
 
 import router from "./router";
 import store from './store';
