@@ -33,8 +33,7 @@ const actions = {
             });
     },
     register({ dispatch, commit }, { name, email, password }) {
-        commit('registerRequest', email);
-
+        commit('registerRequest');
         userService.register({ name, email, password })
             .then(
                 response => {
@@ -45,6 +44,18 @@ const actions = {
                     // dispatch('alert/error', error, { root: true });
                 }
             );
+    },
+    setAccount({ dispatch, commit }) {
+        commit('accountRequest');
+        userService.getProfile()
+            .then(
+                response => {
+                    commit('accountSuccess', response.data);
+                },
+                error => {
+                    commit('accountFailure', error);
+                }
+            )
     }
 };
 
@@ -73,7 +84,18 @@ const mutations = {
     },
     registerFailure(state, error) {
         state.status = {};
-    }
+    },
+    accountRequest(state) {
+        state.status = { fetchingProfile: true }
+    },
+    accountSuccess(state, account) {
+        state.status = { loggedIn: true };
+        state.account = account;
+    },
+    accountFailure(state, error) {
+        state.status = {};
+        state.account = {};
+    },
 };
 
 const user = {
