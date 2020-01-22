@@ -49,8 +49,7 @@
                 get () {
                     return this.$store.state.login.password
                 },
-                set (value) {
-                    console.log(value);
+                set (value) {;
                     this.$store.commit('login/updatePassword', value)
                 }
             },
