@@ -11,7 +11,6 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 import App from "./App";
-import EventBus from "./event-bus";
 import { getCurrencies } from "./requests/currency";
 
 import router from "./router";
@@ -25,11 +24,6 @@ const app = new Vue({
         getCurrencies().then(response => {
             this.$store.commit('setCurrencies', response.data);
         })
-    },
-    mounted () {
-        EventBus.$on('selectCurrency', payload => {
-            this.$store.commit('setCurrency', payload);
-        });
     },
     render: h => h(App)
 });

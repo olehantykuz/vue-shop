@@ -11,8 +11,7 @@
 </template>
 
 <script>
-    import EventBus from "../event-bus";
-    import { mapState } from "vuex";
+    import { mapState, mapMutations } from "vuex";
 
     export default {
         name: "CurrencyItem",
@@ -31,8 +30,11 @@
             },
         },
         methods: {
+            ...mapMutations([
+                'setCurrency'
+            ]),
             selectCurrency () {
-                EventBus.$emit('selectCurrency', this.currency.name);
+                this.setCurrency(this.currency.name);
             }
         }
     }
