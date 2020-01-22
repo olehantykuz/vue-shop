@@ -13,7 +13,7 @@ const actions = {
         userService.login({ email, password })
             .then(
                 response => {
-                    commit('loginSuccess', email);
+                    commit('loginSuccess', response.data.user);
                     router.push({ name: 'home' });
                 },
                 error => {
@@ -38,7 +38,7 @@ const actions = {
         userService.register({ name, email, password })
             .then(
                 response => {
-                    commit('registerSuccess', email);
+                    commit('registerSuccess', response.data.user);
                 },
                 error => {
                     commit('registerFailure', error);
@@ -49,12 +49,12 @@ const actions = {
 };
 
 const mutations = {
-    loginRequest(state, email) {
+    loginRequest(state) {
         state.status = { loggingIn: true };
     },
-    loginSuccess(state, email) {
+    loginSuccess(state, account) {
         state.status = { loggedIn: true };
-        state.account.email = email;
+        state.account = account;
     },
     loginFailure(state) {
         state.status = {};
@@ -64,12 +64,12 @@ const mutations = {
         state.status = {};
         state.account = {};
     },
-    registerRequest(state, email) {
+    registerRequest(state) {
         state.status = { registering: true };
     },
-    registerSuccess(state, email) {
-        state.status = {};
-        state.account.email = email;
+    registerSuccess(state, account) {
+        state.status = { loggedIn: true };
+        state.account = account;
     },
     registerFailure(state, error) {
         state.status = {};
