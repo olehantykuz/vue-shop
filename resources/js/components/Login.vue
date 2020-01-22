@@ -1,69 +1,48 @@
 <template>
     <div>
-        <div class="alert alert-danger" v-if="error">
-            <p>There was an error, unable to sign in with those credentials.</p>
-        </div>
-        <form autocomplete="off">
+        <h2>Login</h2>
+        <form @submit.prevent="handleSubmit">
             <div class="form-group">
-                <label for="email">E-mail</label>
-                <input type="email" id="email" class="form-control" placeholder="user@example.com" v-model="email" required>
+                <label for="email">Username</label>
+                <input id="email" type="email" v-model="email" name="email" class="form-control" :class="{ 'is-invalid': submitted && !email }" />
+                <div v-show="submitted && !email" class="invalid-feedback">Username is required</div>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" class="form-control" v-model="password" required>
+                <input id="password" type="password" v-model="password" name="password" class="form-control" :class="{ 'is-invalid': submitted && !password }" />
+                <div v-show="submitted && !password" class="invalid-feedback">Password is required</div>
             </div>
-            <button
-                type="button"
-                class="btn btn-info"
-                @click="loginUser"
-            >
-                Sign in
-            </button>
+            <div class="form-group">
+                <button class="btn btn-primary" :disabled="status.loggingIn">Login</button>
+                <router-link to="/register" class="btn btn-link">Register</router-link>
+            </div>
         </form>
     </div>
 </template>
 
 <script>
-    import { login } from "../services/user";
-    import { mapState } from "vuex";
+    import { mapState, mapActions } from "vuex";
 
     export default {
         name: "Login",
-        data: function() {
+        data () {
             return {
-                error: null,
-                sending: false,
+                email: '',
+                password: '',
+                submitted: false
             }
         },
         computed: {
-            email: {
-                get () {
-                    return this.$store.state.login.email
-                },
-                set (value) {
-                    this.$store.commit('login/updateEmail', value)
-                }
-            },
-            password: {
-                get () {
-                    return this.$store.state.login.password
-                },
-                set (value) {;
-                    this.$store.commit('login/updatePassword', value)
-                }
-            },
-            disabledButton() {
-                return this.error && this.sending;
-            },
-            ...mapState({
-                form: state => state.login,
-            }),
+            ...mapState('user', ['status'])
         },
         methods: {
-            loginUser() {
-                login(this.form).then(response => {
-
-                });
+            ...mapActions('user', ['login']),
+            handleSubmit (e) {
+                this.submitted = true;
+                const { email, password } = this;
+                if (email && password) {
+                    this.login({ email, password })
+                }
             }
         }
     }

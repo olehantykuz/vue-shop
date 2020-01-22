@@ -21,12 +21,6 @@ const register = data => {
 };
 
 const login = data => {
-    console.log({
-        url: `${baseUrl}/login`,
-        method: 'post',
-        data
-    });
-
     return axios({
         url: `${baseUrl}/login`,
         method: 'post',
@@ -42,20 +36,23 @@ const logout = () => {
     return axios({
         url: `${baseUrl}/logout`,
         method: 'post',
-        headers: authHeader,
-    }).then(response => {
-        window.localStorage.clear();
-
-        return response;
+        headers: authHeader(),
+    }).then(response => response).finally(() => {
+        window.localStorage.removeItem('authToken');
     });
 };
 
-const getUserData = () => {
+const getProfile = () => {
     return axios({
         url: `${baseUrl}/me`,
         method: 'get',
-        headers: authHeader,
+        headers: authHeader(),
     }).then(response => response);
 };
 
-export { register, login, logout, getUserData };
+export const userService = {
+    login,
+    logout,
+    register,
+    getProfile,
+};
