@@ -9,12 +9,21 @@
 
 <script>
     import Heading from "./components/Heading";
+    import { mapActions } from "vuex";
 
     export default {
         name: "App",
         components: {
             Heading,
         },
+        created() {
+            if (window.localStorage.getItem('authToken')) {
+                this.setAccount();
+            }
+        },
+        methods: {
+            ...mapActions('user', ['setAccount'])
+        }
     }
 </script>
 
