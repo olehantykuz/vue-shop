@@ -12,7 +12,7 @@
                     <router-link :to="{name: 'login'}">Login</router-link>
                 </li>
                 <li class="list-group-item">
-                    <router-link to="/logout">Logout</router-link>
+                    <a href="" @click.prevent="logout">Logout</a>
                 </li>
             </ul>
         </div>
@@ -20,8 +20,13 @@
 </template>
 
 <script>
+    import { mapActions } from "vuex";
+
     export default {
-        name: "Heading"
+        name: "Heading",
+        methods: {
+            ...mapActions('user', ['logout'])
+        }
     }
 </script>
 
