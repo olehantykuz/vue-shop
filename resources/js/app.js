@@ -23,6 +23,8 @@ const app = new Vue({
     created() {
         getCurrencies().then(response => {
             this.$store.commit('setCurrencies', response.data);
+        }).catch(error => {
+            this.$store.commit('setCurrencies', {});
         })
     },
     render: h => h(App)
