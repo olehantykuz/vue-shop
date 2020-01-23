@@ -15,17 +15,19 @@ import { getCurrencies } from "./services/currency";
 
 import router from "./router";
 import store from './store';
+import { mapActions } from 'vuex';
 
 const app = new Vue({
     el: '#app',
     store,
     router,
+    methods: {
+        ...mapActions([
+            'setCurrencies'
+        ])
+    },
     created() {
-        getCurrencies().then(response => {
-            this.$store.commit('setCurrencies', response.data);
-        }).catch(error => {
-            this.$store.commit('setCurrencies', {});
-        })
+        this.setCurrencies();
     },
     render: h => h(App)
 });
