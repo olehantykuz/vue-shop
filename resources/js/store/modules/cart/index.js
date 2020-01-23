@@ -3,11 +3,7 @@ const state = {
 };
 
 const getters = {
-    totalCartItems: state => {
-        console.log(state.items.length);
-
-        return state.items.length;
-    }
+    totalCartItems: state => state.items.length
 };
 
 const actions = {
