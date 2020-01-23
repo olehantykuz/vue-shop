@@ -11,37 +11,23 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 import App from "./App";
-import EventBus from "./event-bus";
-import { getCurrencies } from "./requests/currency";
+import { getCurrencies } from "./services/currency";
+
+import router from "./router";
+import store from './store';
+import { mapActions } from 'vuex';
 
 const app = new Vue({
     el: '#app',
-    data: {
-        currencies: {},
-        selectedCurrency: 'USD',
-    },
-    computed: {
-        currencyConversationRate: function () {
-            const key = this.selectedCurrency;
-            const currency = this.currencies[key];
-
-            return currency ? (currency.conversion_rate || 1) : 1;
-        }
-    },
+    store,
+    router,
     methods: {
-        updateSelectedCurrency(payload) {
-            this.selectedCurrency = payload;
-        }
+        ...mapActions([
+            'setCurrencies'
+        ])
     },
     created() {
-        getCurrencies().then(response => {
-            this.currencies = response.data;
-        })
-    },
-    mounted () {
-        EventBus.$on('selectCurrency', payLoad => {
-            this.updateSelectedCurrency(payLoad);
-        });
+        this.setCurrencies();
     },
     render: h => h(App)
 });

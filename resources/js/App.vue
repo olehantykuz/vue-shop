@@ -1,27 +1,29 @@
 <template>
-    <div>
-        <CurrencyList
-            :currencies="currencies"
-        />
-        <ProductList />
+    <div class="container">
+        <Heading />
+        <div role="main">
+            <router-view></router-view>
+        </div>
     </div>
 </template>
 
 <script>
-    import CurrencyList from "./components/CurrencyList";
-    import ProductList from "./components/ProductList";
+    import Heading from "./components/Heading";
+    import { mapActions } from "vuex";
 
     export default {
         name: "App",
         components: {
-            CurrencyList,
-            ProductList,
+            Heading,
         },
-        computed: {
-            currencies: function () {
-                return Object.assign({}, this.$root.currencies)
+        created() {
+            if (window.localStorage.getItem('authToken')) {
+                this.setAccount();
             }
         },
+        methods: {
+            ...mapActions('user', ['setAccount'])
+        }
     }
 </script>
 

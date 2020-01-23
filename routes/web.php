@@ -23,4 +23,4 @@ Route::group(['prefix' => 'admin'], function () {
     });
 });
 
-Route::any('{all}', 'AppController')->where('all', '.*');
+Route::any('{all}', 'AppController')->where('all', '^(?!api).*$');;
