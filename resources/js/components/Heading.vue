@@ -15,16 +15,25 @@
                     <a href="" @click.prevent="logout">Logout</a>
                 </li>
             </ul>
-            <div v-if="status.loggedIn">{{ account.email }}</div>
+            <div class="d-flex list-group list-group-horizontal">
+                <cart-small />
+                <div v-if="status.loggedIn" class="d-flex align-items-center justify-content-center list-group-item">
+                    <span>{{ account.email }}</span>
+                </div>
+            </div>
         </div>
     </header>
 </template>
 
 <script>
     import { mapState, mapActions } from "vuex";
+    import CartSmall from "./CartSmall";
 
     export default {
         name: "Heading",
+        components: {
+            CartSmall
+        },
         computed: {
             ...mapState('user', ['status', 'account'])
         },
