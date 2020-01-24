@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex flex-row list-group-item">
+    <div class="d-flex flex-row list-group-item rounded">
         <router-link :to="{name: 'cart'}" exact>
         </router-link>
         <div>
