@@ -1,5 +1,5 @@
 <template>
-    <header>
+    <header class="mb-4">
         <div class="d-flex flex-row justify-content-between">
             <ul class="list-group list-group-horizontal">
                 <li class="list-group-item">
