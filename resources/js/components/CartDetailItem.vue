@@ -24,6 +24,7 @@
 
 <script>
     import { mapActions } from 'vuex';
+    import { formatByRateFromCents } from "../helpers";
 
     export default {
         name: "CartDetailItem",
@@ -52,8 +53,7 @@
         },
         computed: {
             formattedPrice: function () {
-                return parseFloat(this.product.price * this.rate / 100)
-                    .toFixed(2);
+                return formatByRateFromCents(this.product.price, this.rate)
             },
             productTotalPrice: function () {
                 return this.formattedPrice * this.quantity;
