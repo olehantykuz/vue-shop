@@ -1,6 +1,13 @@
 <template>
     <div class="d-flex flex-row list-group-item">
-        <div>Cart: {{totalCartItems}} items in cart</div>
+        <router-link :to="{name: 'cart'}" exact>
+        </router-link>
+        <div>
+            Cart:
+            <router-link :to="{name: 'cart'}" exact>
+                {{totalCartItems}} products in cart
+            </router-link>
+        </div>
     </div>
 </template>
 

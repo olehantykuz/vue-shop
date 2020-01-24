@@ -5,6 +5,9 @@
                 <li class="list-group-item">
                     <router-link :to="{name: 'home'}" exact>Products</router-link>
                 </li>
+                <li class="list-group-item">
+                    <router-link :to="{name: 'cart'}" exact>Cart</router-link>
+                </li>
                 <li class="list-group-item" v-if="!status.loggedIn">
                     <router-link :to="{name: 'register'}">Register</router-link>
                 </li>
