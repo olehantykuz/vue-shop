@@ -22,29 +22,15 @@
 
 <script>
     import { mapActions } from 'vuex';
-    import { formatByRateFromCents } from "../helpers";
+    import productItemMixin from "../mixins/prouctItemMixin";
 
     export default {
         name: "ProductListItem",
+        mixins: [ productItemMixin ],
         data () {
             return {
                 quantity: 1,
             }
-        },
-        props: {
-            product: {
-                type: Object,
-                required: true
-            },
-            rate: {
-                type: Number,
-                required: true,
-            }
-        },
-        computed: {
-            formattedPrice: function () {
-                return formatByRateFromCents (this.product.price, this.rate);
-            },
         },
         methods: {
             ...mapActions('cart', [
