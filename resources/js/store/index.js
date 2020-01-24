@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import user from "./modules/user";
 import alert from "./modules/alert";
+import cart from './modules/cart';
 import { getCurrencies } from "../services/currency";
 
 Vue.use(Vuex);
@@ -10,6 +11,7 @@ const store = new Vuex.Store({
     modules: {
         user,
         alert,
+        cart,
     },
     state: {
         currencies: {},

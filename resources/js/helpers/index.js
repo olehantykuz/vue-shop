@@ -4,4 +4,9 @@ const authHeader = () => {
     return token ? { Authorization: 'Bearer ' + JSON.parse(window.localStorage.getItem('authToken')) } : {};
 };
 
-export default authHeader;
+const formatByRateFromCents = (cost, rate) => {
+    return parseFloat(cost * rate / 100)
+        .toFixed(2);
+};
+
+export { authHeader, formatByRateFromCents };

@@ -1,17 +1,15 @@
 <template>
-    <li class="list-group-item" :class="{active: isSelected}">
-        <a
-            href ="#"
-            @click="selectCurrency"
-            :class="{'currency-selected': isSelected}"
-        >
-            {{ currency.name }}
-        </a>
-    </li>
+    <a
+        class="dropdown-item"
+        href=""
+        @click.prevent="selectCurrency"
+    >
+        {{ currency.name }}
+    </a>
 </template>
 
 <script>
-    import { mapState, mapMutations } from "vuex";
+    import { mapMutations } from "vuex";
 
     export default {
         name: "CurrencyItem",
@@ -19,14 +17,6 @@
             currency: {
                 type: Object,
                 required: true
-            },
-        },
-        computed: {
-            ...mapState({
-                selectedCurrency: state => state.selectedCurrency,
-            }),
-            isSelected: function () {
-                return this.currency.name === this.selectedCurrency;
             },
         },
         methods: {
@@ -41,7 +31,5 @@
 </script>
 
 <style scoped>
-    .currency-selected {
-        color: white;
-    }
+
 </style>
