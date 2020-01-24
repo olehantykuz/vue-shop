@@ -20,9 +20,10 @@
             </ul>
             <div class="d-flex list-group list-group-horizontal">
                 <cart-small />
-                <div v-if="status.loggedIn" class="d-flex align-items-center justify-content-center list-group-item">
+                <div v-if="status.loggedIn" class="d-flex align-items-center justify-content-center list-group-item ml-1">
                     <span>{{ account.email }}</span>
                 </div>
+                <currency-list class="ml-2" />
             </div>
         </div>
     </header>
@@ -31,11 +32,12 @@
 <script>
     import { mapState, mapActions } from "vuex";
     import CartSmall from "./CartSmall";
+    import CurrencyList from "./CurrencyList";
 
     export default {
         name: "Heading",
         components: {
-            CartSmall
+            CartSmall, CurrencyList
         },
         computed: {
             ...mapState('user', ['status', 'account'])

@@ -1,6 +1,5 @@
 <template>
     <div>
-        <CurrencyList />
         <h3>List of Products</h3>
         <ul class="pagination">
             <li class="page-item"><a class="page-link" href="" @click.prevent="fetchProducts(pagination.links.prev)">Previous</a></li>
@@ -22,7 +21,6 @@
                 :product="product"
                 :rate="conversationRate"
             >
-
             </tr>
         </table>
     </div>
@@ -31,14 +29,12 @@
 <script>
     import { mapGetters, mapState } from 'vuex';
     import ProductListItem from "./ProductListItem";
-    import CurrencyList from "./CurrencyList";
     import { getProducts } from "../services/product";
 
     export default {
         name: "ProductList",
         components: {
             ProductListItem,
-            CurrencyList,
         },
         data: function () {
             return {
