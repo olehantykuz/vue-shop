@@ -56,6 +56,9 @@ const actions = {
                 },
                 error => {
                     commit('accountFailure', error);
+                    if (error.response.status === 401) {
+                        window.localStorage.removeItem('authToken');
+                    }
                 }
             )
     }
@@ -94,7 +97,7 @@ const mutations = {
         state.status = { loggedIn: true };
         state.account = account;
     },
-    accountFailure(state, error) {
+    accountFailure(state) {
         state.status = {};
         state.account = {};
     },
