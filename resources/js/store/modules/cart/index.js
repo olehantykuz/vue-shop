@@ -5,6 +5,15 @@ const state = {
 const getters = {
     totalCartItems: state => state.items.length,
     cartProducts: state => state.items,
+    cartTotalCost: state => {
+        let totalCost = 0;
+
+        state.items.forEach(item => {
+            totalCost += item.product.price * item.quantity;
+        });
+
+        return totalCost;
+    }
 };
 
 const actions = {
