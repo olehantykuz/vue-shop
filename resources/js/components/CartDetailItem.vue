@@ -56,7 +56,7 @@
                 return formatByRateFromCents(this.product.price, this.rate)
             },
             productTotalPrice: function () {
-                return this.formattedPrice * this.quantity;
+                return (this.formattedPrice * this.quantity).toFixed(2);
             }
         },
         methods: {
