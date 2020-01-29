@@ -14,7 +14,7 @@ const store = new Vuex.Store({
         cart,
     },
     state: {
-        currencies: {},
+        currencies: [],
         selectedCurrency: 'USD',
     },
     actions: {
@@ -22,7 +22,7 @@ const store = new Vuex.Store({
             getCurrencies().then(response => {
                 commit('setCurrencies', response.data);
             }).catch(error => {
-                commit('setCurrencies', {});
+                commit('setCurrencies', []);
             })
         },
     },
@@ -37,7 +37,9 @@ const store = new Vuex.Store({
     getters: {
         conversationRate: state => {
             const key = state.selectedCurrency;
-            const currency = state.currencies[key];
+            const currency = state.currencies.find(item => {
+                return item.name === key;
+            });
 
             return currency ? (currency.conversion_rate || 1) : 1;
         }
