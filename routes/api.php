@@ -14,7 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['namespace' => 'App'], function () {
+Route::group([
+    'namespace' => 'App',
+    'middleware' => 'cors'
+], function () {
     Route::group([
         'middleware' => 'api',
         'prefix' => 'auth'
