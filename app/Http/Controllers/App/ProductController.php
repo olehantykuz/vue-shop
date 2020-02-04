@@ -26,8 +26,28 @@ class ProductController extends Controller
 
             return response()->json(['errors' => $validator->errors()], 400);
         }
-        $validator->validate();
         $products = $service->all($request->get('count'));
+
+        return ProductResource::collection($products);
+    }
+
+    /**
+     * @param ProductService $service
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    public function list(ProductService $service, Request $request)
+    {
+        /** @var \Illuminate\Contracts\Validation\Validator $validator */
+        $validator = Validator::make($request->all(), [
+            'ids' => 'required|array',
+        ]);
+
+        if ($validator->fails()) {
+
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
+        $products = $service->getListByIds($request->get('ids'));
 
         return ProductResource::collection($products);
     }
