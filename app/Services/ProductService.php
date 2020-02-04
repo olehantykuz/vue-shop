@@ -26,4 +26,14 @@ class ProductService
             ->all($count);
     }
 
+    /**
+     * @param array $ids
+     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function getListByIds(array $ids)
+    {
+        return $this->repository
+            ->getByIds($ids);
+    }
+
 }

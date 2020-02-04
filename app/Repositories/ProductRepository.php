@@ -17,4 +17,15 @@ class ProductRepository
             ->paginate($count);
     }
 
+    /**
+     * @param array $ids
+     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function getByIds(array $ids)
+    {
+        return Product::with('category')
+            ->whereIn('id', $ids)
+            ->get();
+    }
+
 }
