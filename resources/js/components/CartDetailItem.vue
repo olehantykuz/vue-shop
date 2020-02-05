@@ -25,6 +25,7 @@
 <script>
     import { mapActions } from 'vuex';
     import productItemMixin from "../mixins/prouctItemMixin";
+    import EventBus from "../event-bus";
 
     export default {
         name: "CartDetailItem",
@@ -52,10 +53,12 @@
         methods: {
             ...mapActions('cart', ['removeFromCart']),
             removeProduct() {
-                this.removeFromCart({
+                const data = {
                     id: this.product.id,
                     quantity: this.removedQuantity
-                })
+                };
+                this.removeFromCart(data);
+                EventBus.$emit('remove-cart-item', data)
             }
         }
     }
