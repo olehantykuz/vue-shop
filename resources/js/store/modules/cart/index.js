@@ -1,79 +1,68 @@
+import { getCart, refreshCart } from '../../../services/cart';
+
 const state = {
-    items: [],
+    cart: getCart(),
 };
 
 const getters = {
-    totalCartItems: state => state.items.length,
-    cartProducts: state => state.items,
-    cartTotalCost: state => {
-        let totalCost = 0;
-
-        state.items.forEach(item => {
-            totalCost += item.product.price * item.quantity;
-        });
-
-        return totalCost;
-    }
+    totalCartItems: state => Object.keys(state.cart).length,
+    cart: state => state.cart,
 };
 
 const actions = {
     addToCart({ commit, state }, { product, quantity }) {
         const id = product.id;
-        const cartItem = findItemInCart(id);
         const formattedQuantity = parseInt(quantity);
+        const { cart } = state;
 
-        if (!cartItem) {
-            commit('pushItemToCart', { product, quantity: formattedQuantity })
+        if (cart[id] === undefined) {
+            commit('pushToCart', { id, quantity: formattedQuantity });
         } else {
-            commit('incrementItemQuantity', {id: product.id, quantity: formattedQuantity})
+            commit('incrementBy', {id: product.id, quantity: formattedQuantity});
         }
+        refreshCart(state.cart);
     },
     removeFromCart({ commit, state }, { id, quantity }) {
-        const cartItem = findItemInCart(id);
-
-        if (cartItem) {
-            if (quantity >= cartItem.quantity) {
-                commit('removeItemFromCart', id)
+        const { cart } = state;
+        if (cart[id] !== undefined) {
+            if (quantity >= cart[id]) {
+                commit('deleteFromCart', id);
             } else {
-                commit('decrementItemQuantity', { id, quantity })
+                commit('decrementBy', { id, quantity })
             }
         }
+
+        refreshCart(state.cart);
     },
     clearCart({ commit }) {
-        commit('clearCart')
+        commit('clearCart');
+        refreshCart(state.cart);
     }
 };
 
 const mutations = {
-    pushItemToCart (state, { product, quantity }) {
-        state.items.push({
-            product,
-            quantity
-        })
+    pushToCart(state, { id, quantity }) {
+        state.cart = { ...state.cart, [id]: quantity }
     },
-    removeItemFromCart (state, id) {
-        const items = state.items.filter(item => {
-            return item.product.id != id;
+    deleteFromCart(state, id) {
+        const newCart = {};
+        Object.keys(state.cart).forEach(key => {
+            if (+key !== id) {
+                newCart[key] = state.cart[key];
+            }
         });
-        state.items = items;
+        state.cart = Object.assign({}, newCart);
     },
-    incrementItemQuantity (state, { id, quantity }) {
-        const cartItem = findItemInCart(id);
-        cartItem.quantity += quantity;
+    incrementBy(state, { id, quantity }) {
+        state.cart = { ...state.cart, [id]: quantity + state.cart[id]}
     },
-    decrementItemQuantity (state, { id, quantity }) {
-        const cartItem = findItemInCart(id);
-        cartItem.quantity -= quantity;
-    },
-    setCartItems (state, { items }) {
-        state.items = items
+    decrementBy(state, { id, quantity }) {
+        state.cart = { ...state.cart, [id]: state.cart[id] - quantity }
     },
     clearCart(state) {
-        state.items = [];
+        state.cart = {};
     }
 };
-
-const findItemInCart = id => state.items.find(item => item.product && item.product.id === id);
 
 export default {
     namespaced: true,
