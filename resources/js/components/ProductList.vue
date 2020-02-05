@@ -3,7 +3,7 @@
         <h3>List of Products</h3>
         <ul class="pagination">
             <li class="page-item"><a class="page-link" href="" @click.prevent="fetchProducts(pagination.links.prev)">Previous</a></li>
-            <li style="display: flex;" class="page-item flex align-items-center"><div>Page {{pagination.meta.current_page}} of {{pagination.meta.last_page}}</div></li>
+            <li style="display: flex;" class="page-item flex align-items-center pl-1 pr-1"><div>Page {{pagination.meta.current_page}} of {{pagination.meta.last_page}}</div></li>
             <li class="page-item"><a class="page-link" href="" @click.prevent="fetchProducts(pagination.links.next)">Next</a></li>
         </ul>
         <table class="table">
