@@ -31,11 +31,20 @@
                 </tr>
             </tfoot>
         </table>
+        <div class="row d-flex justify-content-around" v-if="items.length > 0">
+            <button
+                type="button"
+                class="btn btn-danger"
+                @click="clearCart"
+            >
+                Clear Cart
+            </button>
+        </div>
     </div>
 </template>
 
 <script>
-    import { mapGetters, mapState } from "vuex";
+    import { mapGetters, mapState, mapActions } from "vuex";
     import CartDetailItem from "./CartDetailItem";
     import { formatByRateFromCents } from "../helpers";
     import { getProductsByIds } from "../services/product";
@@ -72,6 +81,11 @@
             }
         },
         methods: {
+            ...mapActions('cart', ['clear']),
+            clearCart() {
+                this.clear();
+                this.items = [];
+            },
             reduceItem (id) {
                 const quantity = this.cart[id] || 0;
                 let res = [];

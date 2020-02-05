@@ -34,7 +34,7 @@ const actions = {
 
         refreshCart(state.cart);
     },
-    clearCart({ commit }) {
+    clear({ commit }) {
         commit('clearCart');
         refreshCart(state.cart);
     }
