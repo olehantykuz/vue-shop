@@ -7,4 +7,14 @@ const getProducts = (url) => {
     }).then(response => response);
 };
 
-export { getProducts };
+const getProductsByIds = ids => {
+    const key = 'ids';
+    const url = `/api/products/cart` + '?' + key + '[]=' + ids.join('&' + key + '[]=');
+
+    return axios({
+        url,
+        method: 'get',
+    }).then(response => response);
+};
+
+export { getProducts, getProductsByIds };
