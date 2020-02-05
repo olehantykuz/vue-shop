@@ -1,4 +1,4 @@
-import { getCart, refreshCart } from '../../../services/cart';
+import { getCart, refreshCart } from 'src/services/cart';
 
 const state = {
     cart: getCart(),

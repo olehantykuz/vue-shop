@@ -1,5 +1,5 @@
-import { userService } from '../../../services/user';
-import router from "../../../router";
+import { userService } from 'src/services/user';
+import router from "src/router";
 
 const token = JSON.parse(window.localStorage.getItem('authToken'));
 const state = token
