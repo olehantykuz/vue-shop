@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\ProductRepository;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class ProductService
 {
@@ -18,7 +19,7 @@ class ProductService
 
     /**
      * @param int|null $count
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return LengthAwarePaginator
      */
     public function all(?int $count = null)
     {
@@ -34,6 +35,17 @@ class ProductService
     {
         return $this->repository
             ->getByIds($ids);
+    }
+
+    /**
+     * @param string $query
+     * @param int|null $count
+     * @return LengthAwarePaginator
+     */
+    public function searchByQuery(string $query, ?int $count = null)
+    {
+        return $this->repository
+            ->findByQuery($query, $count);
     }
 
 }
