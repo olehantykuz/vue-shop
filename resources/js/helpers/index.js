@@ -1,3 +1,5 @@
+import { config } from 'src/config';
+
 const authHeader = () => {
     const token = JSON.parse(window.localStorage.getItem('authToken'));
 
@@ -9,4 +11,8 @@ const formatByRateFromCents = (cost, rate) => {
         .toFixed(2);
 };
 
-export { authHeader, formatByRateFromCents };
+const getApiUrl = (defaultEndpoint, apiEndpoint = null) => {
+    return new URL(apiEndpoint || defaultEndpoint, config.backendUrl);
+};
+
+export { authHeader, formatByRateFromCents, getApiUrl };
