@@ -13,8 +13,8 @@ $factory->define(Product::class, function (Faker $faker) {
         ->pluck('id');
 
     return [
-        'name' => Str::random(10),
-        'price' => rand(1, 999999),
+        'name' => $faker->sentence(2, true),
+        'price' => rand(1, 999),
         'category_id' => (int) $ids->random(),
         'description' => $faker->text(500),
     ];

@@ -14,6 +14,7 @@ class TestSeeder extends Seeder
     public function run()
     {
         if (Category::count() > 0) {
+            DB::table('products')->truncate();
             factory(Product::class, 777)->create();
         }
     }
