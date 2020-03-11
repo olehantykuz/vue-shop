@@ -1,8 +1,11 @@
 import axios from 'axios';
+import { getApiUrl } from 'src/helpers';
 
-const getProducts = (url) => {
+const getProducts = (fetchUrl) => {
+    const url = getApiUrl(`/api/products`, fetchUrl);
+
     return axios({
-        url: url || `/api/products`,
+        url,
         method: 'get',
     }).then(response => response);
 };
@@ -17,4 +20,18 @@ const getProductsByIds = ids => {
     }).then(response => response);
 };
 
-export { getProducts, getProductsByIds };
+const searchProducts = (baseUrl, query, count = null) => {
+    let url = getApiUrl(`/api/products/search`, baseUrl);
+
+    url.searchParams.append('query', query);
+    if (count) {
+        url.searchParams.append('count', count);
+    }
+
+    return axios({
+        url: url.toString(),
+        method: 'get',
+    }).then(response => response);
+};
+
+export { getProducts, getProductsByIds, searchProducts };
