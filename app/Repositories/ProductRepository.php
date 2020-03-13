@@ -36,6 +36,13 @@ class ProductRepository
      */
     public function findByQuery(string $query, ?int $count = null): LengthAwarePaginator
     {
+        $result = Product::search($query)
+            ->orderBy('id')
+            ->paginate($count);
+//        dd($result);
+        $result->load('category');
+        return $result;
+
         return $this->getProductsQuery()
             ->where('name', 'like', '%' . $query . '%')
             ->orWhere('description', 'like', '%' . $query . '%')
